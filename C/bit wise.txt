@@ -1,0 +1,393 @@
+set a bit
+k=num|(1<<pos);
+clear a bit
+k=num&(~(1<<pos));
+toggle a bit
+k=num^(1<<pos);
+chek for lsb bit set or clear
+k=num&1;
+extract a bit
+status=(num>>pos)&1;
+
+
+
+
+
+
+
+
+/*Write a C program to check Least Significant Bit (LSB) of a number is set or 
+not.*/
+#include<stdio.h>
+void main()
+{
+    int num;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    if(num&1)
+    {
+        printf("LSB of given number is 1\n");
+    }
+    else
+    {
+        printf("LSB of given number is 0\n");
+    }
+}
+
+
+
+
+
+
+
+
+
+/*Write a C program to check Most Significant Bit (MSB) of a number is set or 
+not.*/
+#include<stdio.h>
+void main()
+{
+    int num,bits,msb;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    bits=sizeof(num)*8;
+    msb=(1<<(bits-1));
+    if(msb&num)
+    {
+        printf("msb bit is 1\n");
+    }
+    else
+    {
+        printf("msb bit is 0\n");
+    }
+    
+}
+
+
+
+
+
+//Write a C program to get nth bit of a number.
+
+#include<stdio.h>
+void main()
+{
+    int num,n,status;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    printf("enter bit position to check:\n");
+    scanf("%d",&n);
+    status=(num>>n)&1;
+    if(status==1)
+    {
+        printf("given position is set\n");
+    }
+    else
+    {
+        printf("given position is clear\n");
+    }
+}
+
+
+
+
+
+//set n th position of given number
+
+#include<stdio.h>
+void main()
+{
+    int num,pos,k;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    printf("enter position:\n");
+    scanf("%d",&pos);
+    k=num|(1<<pos);
+    printf("%d\n",k);
+    
+}
+
+
+
+//clear n th bit of a number
+
+#include<stdio.h>
+void main()
+{
+    int num,n,k;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    printf("enter position:\n");
+    scanf("%d",&n);
+    k=num&(~(1<<n));
+    printf("%d\n",k);
+}
+
+
+
+
+
+//toggle n th bit of a number
+#include<stdio.h>
+void main()
+{
+    int num,pos,k;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    printf("enter position of bit to toggle:\n");
+    scanf("%d",&pos);
+    k=num^(1<<pos);
+    printf("%d\n",k);
+}
+
+
+
+
+
+
+
+//toggle successive bits 
+#include<stdio.h>
+void main()
+{
+    int num,pos,k;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    printf("enter position:\n");
+    scanf("%d",&pos);
+    k=num^(0xf<<pos);
+    printf("%d\n",k);
+}
+
+//set successive bits 
+#include<stdio.h>
+void main()
+{
+    int num,pos,k;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    printf("enter position:\n");
+    scanf("%d",&pos);
+    k=num|(0xf<<pos);
+    printf("%d\n",k);
+}
+
+
+
+
+
+//clear successive bits 
+#include<stdio.h>
+void main()
+{
+    int num,pos,k;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    printf("enter position:\n");
+    scanf("%d",&pos);
+    k=num&(~(0xf<<pos));        /*  1 clear 1 perticular bit */
+    printf("%d\n",k);		/*  3 clear 2 successive bits*/
+}				//	7 for clear 3 successive bits	
+				//	0xf for clear 4 successive bits 
+				//0x1f	for clear 5 successive bits
+				//0x3f	for clear 6 successive bits
+				//0x7f	for clear 7 successive bits
+				//0xff	for clear 8 successive bits
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//get highest set bit of a number
+
+#include<stdio.h>
+void main()
+{
+    int num,count=-1,i=0,bits;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    bits=sizeof(num)*8;
+    for(i=0;i<bits;i++)
+    {
+        if((num>>i)&1)
+        count=i;
+    }
+    if(count!=-1)
+    printf("%d\n",count);
+    else
+    printf("0 has no set bits");
+}
+
+
+
+
+
+
+
+
+
+
+//lowest set bits of a number
+#include<stdio.h>
+void main()
+{
+    int i,num,count=-1,bits;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    bits=sizeof(num)*8;
+    for(i=bits;i>=0;i--)
+    {
+        if((num>>i)&1)
+        {
+            count=i;
+        }
+    }
+    if(count!=-1)
+    {
+        printf(" lowest set bit of a number is:%d\n",count);
+    }
+    else
+    {
+        printf("0 set bits in given number\n");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+//count trailing zeros in a given number
+#include<stdio.h>
+void main()
+{
+    int num,i,count=0,bits;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    bits=sizeof(num)*8;
+    for(i=0;i<bits;i++)
+    {
+        if((num>>i)&1)
+        {
+            break;
+        }
+        else
+        count++;
+    }
+    printf("trailing zeros in a given number is:%d\n",count);
+}
+
+
+
+
+
+
+
+
+
+
+//leading zeros in given binary number
+#include<stdio.h>
+void main()
+{
+    int i,j,k,num,count=0;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    for(i=31;i>=0;i--)
+    {
+        if((num>>i)&1)
+        {
+            break;
+        }
+        else
+        {
+            count++;
+        }
+    }
+    printf("%d\n",count);
+}
+
+
+
+
+
+//total number of zeros and one's in a given binary number
+#include<stdio.h>
+void main()
+{
+    int i,j,k,num,one=0,zero=0;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    for(i=0;i<32;i++)
+    {
+        if((num>>i)&1)
+        {
+            one++;
+        }
+        else
+        {
+            zero++;
+        }
+    }
+    printf("one's:%d\n",one);
+    printf("zero's:%d\n",zero);
+}
+
+
+
+
+
+
+
+
+
+//even or odd using bitwise
+#include<stdio.h>
+void main()
+{
+    int num;
+    printf("enter any number:\n");
+    scanf("%d",&num);
+    if((num&1)==1)
+    {
+        printf("odd number\n");
+    }
+    else
+    {
+        printf("even number\n");
+    }
+    
+}
+
+
+
+
+
+
+
+
+//swapping of two numbers using bitwise
+#include<stdio.h>
+void main()
+{
+    int a,b;
+    printf("enter two numbers:\n");
+    scanf("%d%d",&a,&b);
+    a=a^b;
+    b=a^b;
+    a=a^b;
+    printf("a=%d\nb=%d\n",a,b);
+}

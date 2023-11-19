@@ -1,0 +1,7 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\eeprom.obj",
+".\Objects\delay.obj",
+".\Objects\uart.obj" 
+TO ".\Objects\UART_IIC_EEPROM" 
+PRINT(".\Listings\UART_IIC_EEPROM.m51")

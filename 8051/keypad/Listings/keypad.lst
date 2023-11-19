@@ -1,0 +1,282 @@
+C51 COMPILER V9.60.7.0   KEYPAD                                                            10/01/2023 12:56:05 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEYPAD
+OBJECT MODULE PLACED IN .\Objects\keypad.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE keypad.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\ke
+                    -ypad.lst) TABS(2) OBJECT(.\Objects\keypad.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          
+   3          #define display_port P2      //Data pins connected to port 2 on microcontroller
+   4          
+   5          sbit rs = P3^0;  //RS pin connected to pin 2 of port 3
+   6          
+   7          sbit rw = P3^1;  // RW pin connected to pin 3 of port 3
+   8          
+   9          sbit e =  P3^2;  //E pin connected to pin 4 of port 3
+  10          
+  11          
+  12          sbit C4 = P0^0;     // Connecting keypad to Port 1
+  13          
+  14          sbit C3 = P0^1;
+  15          
+  16          sbit C2 = P0^2;
+  17          
+  18          sbit C1 = P0^3;
+  19          
+  20          sbit R4 = P0^4;
+  21          
+  22          sbit R3 = P0^5;
+  23          
+  24          sbit R2 = P0^6;
+  25          
+  26          sbit R1 = P0^7;
+  27          
+  28          void msdelay(unsigned int time)  // Function for creating delay in milliseconds.
+  29          
+  30          {
+  31   1      
+  32   1          unsigned i,j ;
+  33   1      
+  34   1          for(i=0;i<time;i++)    
+  35   1      
+  36   1          for(j=0;j<1275;j++);
+  37   1      
+  38   1      }
+  39          
+  40          void lcd_cmd(unsigned char command)  //Function to send command instruction to LCD
+  41          
+  42          {
+  43   1      
+  44   1          display_port = command;
+  45   1      
+  46   1          rs= 0;
+  47   1      
+  48   1          rw=0;
+  49   1      
+  50   1          e=1;
+  51   1      
+  52   1          msdelay(1);
+  53   1      
+  54   1          e=0;
+C51 COMPILER V9.60.7.0   KEYPAD                                                            10/01/2023 12:56:05 PAGE 2   
+
+  55   1      
+  56   1      }
+  57          
+  58          
+  59          void lcd_data(unsigned char disp_data)  //Function to send display data to LCD
+  60          
+  61          {
+  62   1          display_port = disp_data;
+  63   1      
+  64   1          rs= 1;
+  65   1      
+  66   1          rw=0;
+  67   1      
+  68   1          e=1;
+  69   1      
+  70   1          msdelay(1);
+  71   1      
+  72   1          e=0;
+  73   1      
+  74   1      }
+  75          
+  76          
+  77           void lcd_init()    //Function to prepare the LCD  and get it ready
+  78          
+  79          {
+  80   1      
+  81   1          lcd_cmd(0x38);  // for using 2 lines and 5X7 matrix of LCD
+  82   1      
+  83   1          msdelay(10);
+  84   1      
+  85   1          lcd_cmd(0x0F);  // turn display ON, cursor blinking
+  86   1      
+  87   1          msdelay(10);
+  88   1      
+  89   1          lcd_cmd(0x01);  //clear screen
+  90   1      
+  91   1          msdelay(10);
+  92   1      
+  93   1          lcd_cmd(0x81);  // bring cursor to position 1 of line 1
+  94   1      
+  95   1          msdelay(10);
+  96   1      
+  97   1      }
+  98          
+  99          
+ 100          void row_finder1() //Function for finding the row for column 1
+ 101          
+ 102          {
+ 103   1      
+ 104   1      R1=R2=R3=R4=1;
+ 105   1      
+ 106   1      C1=C2=C3=C4=0;
+ 107   1      
+ 108   1      
+ 109   1      if(R1==0)
+ 110   1      
+ 111   1      lcd_data('1');
+ 112   1      
+ 113   1      if(R2==0)
+ 114   1      
+ 115   1      lcd_data('4');
+ 116   1      
+C51 COMPILER V9.60.7.0   KEYPAD                                                            10/01/2023 12:56:05 PAGE 3   
+
+ 117   1      if(R3==0)
+ 118   1      
+ 119   1      lcd_data('7');
+ 120   1      
+ 121   1      if(R4==0)
+ 122   1      
+ 123   1      lcd_data('*');
+ 124   1      
+ 125   1      }
+ 126          
+ 127          
+ 128          void row_finder2() //Function for finding the row for column 2
+ 129          
+ 130          {
+ 131   1      
+ 132   1      R1=R2=R3=R4=1;
+ 133   1      
+ 134   1      C1=C2=C3=C4=0;
+ 135   1      
+ 136   1      
+ 137   1      if(R1==0)
+ 138   1      
+ 139   1      lcd_data('2');
+ 140   1      
+ 141   1      if(R2==0)
+ 142   1      
+ 143   1      lcd_data('5');
+ 144   1      
+ 145   1      if(R3==0)
+ 146   1      
+ 147   1      lcd_data('8');
+ 148   1      
+ 149   1      if(R4==0)
+ 150   1      
+ 151   1      lcd_data('0');
+ 152   1      
+ 153   1      }
+ 154          
+ 155          
+ 156          void row_finder3() //Function for finding the row for column 3
+ 157          
+ 158          {
+ 159   1      
+ 160   1      R1=R2=R3=R4=1;
+ 161   1      
+ 162   1      C1=C2=C3=C4=0;
+ 163   1      
+ 164   1      
+ 165   1      if(R1==0)
+ 166   1      
+ 167   1      lcd_data('3');
+ 168   1      
+ 169   1      if(R2==0)
+ 170   1      
+ 171   1      lcd_data('6');
+ 172   1      
+ 173   1      if(R3==0)
+ 174   1      
+ 175   1      lcd_data('9');
+ 176   1      
+ 177   1      if(R4==0)
+ 178   1      
+C51 COMPILER V9.60.7.0   KEYPAD                                                            10/01/2023 12:56:05 PAGE 4   
+
+ 179   1      lcd_data('#');
+ 180   1      
+ 181   1      }
+ 182          
+ 183          
+ 184          void row_finder4() //Function for finding the row for column 4
+ 185          
+ 186          {
+ 187   1      
+ 188   1      R1=R2=R3=R4=1;
+ 189   1      
+ 190   1      C1=C2=C3=C4=0;
+ 191   1      
+ 192   1      
+ 193   1      if(R1==0)
+ 194   1      
+ 195   1      lcd_data('A');
+ 196   1      
+ 197   1      if(R2==0)
+ 198   1      
+ 199   1      lcd_data('B');
+ 200   1      
+ 201   1      if(R3==0)
+ 202   1      
+ 203   1      lcd_data('C');
+ 204   1      
+ 205   1      if(R4==0)
+ 206   1      
+ 207   1      lcd_data('D');
+ 208   1      
+ 209   1      }
+ 210          
+ 211          
+ 212          void main()
+ 213          
+ 214          {
+ 215   1      
+ 216   1          lcd_init();
+ 217   1      
+ 218   1          while(1)
+ 219   1      
+ 220   1          {    
+ 221   2      
+ 222   2              msdelay(30); 
+ 223   2      
+ 224   2              C1=C2=C3=C4=1;
+ 225   2      
+ 226   2                R1=R2=R3=R4=0;
+ 227   2      
+ 228   2                if(C1==0)
+ 229   2      
+ 230   2                row_finder1();
+ 231   2      
+ 232   2                else if(C2==0)
+ 233   2      
+ 234   2                 row_finder2();
+ 235   2      
+ 236   2                 else if(C3==0)
+ 237   2      
+ 238   2              row_finder3();
+ 239   2      
+ 240   2              else if(C4==0)
+C51 COMPILER V9.60.7.0   KEYPAD                                                            10/01/2023 12:56:05 PAGE 5   
+
+ 241   2      
+ 242   2              row_finder4();
+ 243   2      
+ 244   2          }
+ 245   1      
+ 246   1      
+ 247   1      }
+ 248          
+ 249          
+ 250          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    356    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

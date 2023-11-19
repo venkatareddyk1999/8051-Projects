@@ -1,0 +1,116 @@
+C51 COMPILER V9.60.7.0   LCD                                                               09/25/2023 09:18:55 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE LCD
+OBJECT MODULE PLACED IN .\Objects\lcd.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE lcd.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\lcd.l
+                    -st) TABS(2) OBJECT(.\Objects\lcd.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include "lcd.h"
+   3          #include "IO_Definitions.h"
+   4          #include "adc.h"
+   5          
+   6          // Implement lcd_init(), lcd_data(), lcd_cmd(), and lcd_data_adc() here.
+   7          
+   8          
+   9          void lcd_init()
+  10          {
+  11   1      lcd_cmd(0x01);
+  12   1      delay(1);
+  13   1      lcd_cmd(0x06);
+  14   1      delay(1);
+  15   1      lcd_cmd(0x0e);
+  16   1      delay(1);
+  17   1      lcd_cmd(0x38);
+  18   1      delay(1);
+  19   1      lcd_cmd(0x80);
+  20   1      delay(1);
+  21   1      }
+  22          
+  23          void lcd_data(unsigned char item) 
+  24          {
+  25   1      dataport = item;
+  26   1      rs= 1;
+  27   1      rw=0;
+  28   1      e=1;
+  29   1      delay(1);
+  30   1      e=0;
+  31   1      }
+  32          
+  33          
+  34          
+  35          
+  36          
+  37          void lcd_cmd(unsigned char item)
+  38          {
+  39   1      dataport=item;
+  40   1      rs= 0;
+  41   1      rw=0;
+  42   1      e=1;
+  43   1      delay(1);
+  44   1      e=0;
+  45   1      return;
+  46   1      }
+  47          
+  48          
+  49          
+  50          
+  51          void lcd_data_adc(unsigned int i)
+  52          {
+  53   1      int p;
+  54   1      int k=0;
+C51 COMPILER V9.60.7.0   LCD                                                               09/25/2023 09:18:55 PAGE 2   
+
+  55   1      while(i>0)
+  56   1      {
+  57   2        num[k]=i%10;
+  58   2        i=i/10;
+  59   2        k++;
+  60   2      }
+  61   1      k--;
+  62   1      for (p=k;p>=0;p--)
+  63   1      {
+  64   2      dataport=num[p]+48;
+  65   2      rw = 0;
+  66   2      rs = 1;
+  67   2      e = 1;
+  68   2      delay(1);
+  69   2      e = 0;
+  70   2      }
+  71   1      }
+  72          
+  73          
+  74          
+  75          void lcd_data_string(char *x)
+  76          {
+  77   1          while(*x!='\0')
+  78   1          {
+  79   2              lcd_data(*x);
+  80   2              delay(2);
+  81   2              x++;
+  82   2          }
+  83   1      }
+  84          
+  85          
+  86          
+  87          
+  88          
+  89          
+  90          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    258    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     20       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

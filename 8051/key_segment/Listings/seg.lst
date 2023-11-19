@@ -1,0 +1,136 @@
+A51 MACRO ASSEMBLER  SEG                                                                  10/01/2023 11:58:13 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\seg.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE seg.a51 SET(SMALL) DEBUG PRINT(.\Listings\seg.lst) OBJECT(.\Objects\seg
+                      .obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0000H
+                       2             
+0000 900090            3     MOV DPTR,#look_up_table 
+                       4     
+0003 74FF              5     MOV A,#0FFh
+                       6     
+0005 759000            7     MOV P1,#00000000B 
+                       8     
+0008 75B0FF            9     reverse:MOV P3,#0FFh 
+000B C2B0             10          CLR P3.0 
+000D 20B404           11          JB P3.4,next_find_1  
+0010 7400             12          MOV A,#0D  
+0012 118C             13          ACALL disp_000  
+0014 20B504           14     next_find_1:JB P3.5,next_find_2 
+0017 7401             15           MOV A,#1D
+0019 118C             16           ACALL disp_000
+001B 20B604           17     next_find_2:JB P3.6,next_find_3
+001E 7402             18           MOV A,#2D
+0020 118C             19           ACALL disp_000
+0022 20B704           20     next_find_3:JB P3.7,next_find_4
+0025 7403             21           MOV A,#3D
+0027 118C             22           ACALL disp_000
+0029 D2B0             23     next_find_4:SETB P3.0
+002B C2B1             24           CLR P3.1
+002D 20B404           25           JB P3.4,next_find_5
+0030 7404             26           MOV A,#4D
+0032 118C             27           ACALL disp_000
+0034 20B504           28     next_find_5:JB P3.5,next_find_6
+0037 7405             29           MOV A,#5D
+0039 118C             30           ACALL disp_000
+003B 20B604           31     next_find_6:JB P3.6,next_find_7
+003E 7406             32           MOV A,#6D
+0040 118C             33           ACALL disp_000
+0042 20B704           34     next_find_7:JB P3.7,next_find_8
+0045 7407             35           MOV A,#7D
+0047 118C             36           ACALL disp_000
+0049 D2B1             37     next_find_8:SETB P3.1
+004B C2B2             38           CLR P3.2
+004D 20B404           39           JB P3.4,NEXT9
+0050 7408             40           MOV A,#8D
+0052 118C             41           ACALL disp_000
+0054 20B504           42     NEXT9:JB P3.5,next_find_10
+0057 7409             43           MOV A,#9D
+0059 118C             44           ACALL disp_000
+005B 20B604           45     next_find_10:JB P3.6,next_find_11
+005E 740A             46            MOV A,#10D
+0060 118C             47            ACALL disp_000
+0062 20B704           48     next_find_11:JB P3.7,next_find_12
+0065 740B             49            MOV A,#11D
+0067 118C             50            ACALL disp_000
+0069 D2B2             51     next_find_12:SETB P3.2
+006B C2B3             52            CLR P3.3
+006D 20B404           53            JB P3.4,next_find_13
+0070 740C             54            MOV A,#12D
+0072 118C             55            ACALL disp_000
+0074 20B504           56     next_find_13:JB P3.5,next_find_14
+0077 740D             57            MOV A,#13D
+A51 MACRO ASSEMBLER  SEG                                                                  10/01/2023 11:58:13 PAGE     2
+
+0079 118C             58            ACALL disp_000
+007B 20B604           59     next_find_14:JB P3.6,next_find_15
+007E 740E             60            MOV A,#14D
+0080 118C             61            ACALL disp_000
+0082 20B783           62     next_find_15:JB P3.7,reverse
+0085 740F             63            MOV A,#15D
+0087 118C             64            ACALL disp_000
+0089 020008           65            LJMP reverse
+                      66     
+008C 93               67     disp_000:MOVC A,@A+DPTR 
+008D F590             68             MOV P1,A       
+008F 22               69             RET
+                      70     
+0090                  71     look_up_table: 
+                      72          
+0090 E0               73          DB 11100000B
+0091 FE               74          DB 11111110B
+0092 F6               75          DB 11110110B
+0093 9C               76          DB 10011100B
+0094 66               77          DB 01100110B
+0095 B6               78          DB 10110110B
+0096 BE               79          DB 10111110B
+0097 3E               80          DB 00111110B
+0098 60               81          DB 01100000B 
+0099 DA               82          DB 11011010B
+009A F2               83          DB 11110010B
+009B EE               84          DB 11101110B
+009C 9E               85          DB 10011110B
+009D FC               86          DB 11111100B
+009E 8E               87          DB 10001110B
+009F 7A               88          DB 01111010B
+                      89          END
+                                              
+A51 MACRO ASSEMBLER  SEG                                                                  10/01/2023 11:58:13 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DISP_000 . . . . .  C ADDR   008CH   A   
+LOOK_UP_TABLE. . .  C ADDR   0090H   A   
+NEXT9. . . . . . .  C ADDR   0054H   A   
+NEXT_FIND_1. . . .  C ADDR   0014H   A   
+NEXT_FIND_10 . . .  C ADDR   005BH   A   
+NEXT_FIND_11 . . .  C ADDR   0062H   A   
+NEXT_FIND_12 . . .  C ADDR   0069H   A   
+NEXT_FIND_13 . . .  C ADDR   0074H   A   
+NEXT_FIND_14 . . .  C ADDR   007BH   A   
+NEXT_FIND_15 . . .  C ADDR   0082H   A   
+NEXT_FIND_2. . . .  C ADDR   001BH   A   
+NEXT_FIND_3. . . .  C ADDR   0022H   A   
+NEXT_FIND_4. . . .  C ADDR   0029H   A   
+NEXT_FIND_5. . . .  C ADDR   0034H   A   
+NEXT_FIND_6. . . .  C ADDR   003BH   A   
+NEXT_FIND_7. . . .  C ADDR   0042H   A   
+NEXT_FIND_8. . . .  C ADDR   0049H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+P3 . . . . . . . .  D ADDR   00B0H   A   
+REVERSE. . . . . .  C ADDR   0008H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

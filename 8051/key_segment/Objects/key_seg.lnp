@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\seg.obj" 
+TO ".\Objects\key_seg" 
+PRINT(".\Listings\key_seg.m51")

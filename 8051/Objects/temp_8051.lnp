@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\lcd.obj",
+".\Objects\adc.obj" 
+TO ".\Objects\temp_8051" 
+PRINT(".\Listings\temp_8051.m51")

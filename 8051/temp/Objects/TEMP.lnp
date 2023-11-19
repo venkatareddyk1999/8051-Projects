@@ -1,0 +1,6 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj",
+".\Objects\lcd.obj",
+".\Objects\adc.obj" 
+TO ".\Objects\TEMP" 
+PRINT(".\Listings\TEMP.m51")

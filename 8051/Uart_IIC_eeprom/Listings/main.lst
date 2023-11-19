@@ -1,0 +1,513 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          
+   2          #include <reg51.h>
+   3          #include "delay.h"
+   4          #include "eeprom.h"
+   5          #include "uart.h"
+   6          
+   7          
+   8          
+   9          int main()
+  10          {
+  11   1        extern unsigned char rec[25];
+  12   1      
+  13   1       // unsigned char Data[50];
+  14   1        while(1)
+  15   1        {
+  16   2          unsigned char rw,addr;
+  17   2          unsigned int pg;
+  18   2        ser_init();
+  19   2          tx_str(" Which operation You want to perform Read(R) from the EEPROM or Write(W) in to the EEPROM  ");
+  20   2           tx_str("\n\r");
+  21   2          tx_str(" Enter(R/W) :");
+  22   2          tx_str("\n\r");
+  23   2          rw = rx();
+  24   2          if( rw == 'R' || rw == 'r')
+  25   2          {
+  26   3            tx_str(" Read mode selected ");
+  27   3            tx_str("\n\r");
+  28   3            tx_str(" Enter the page number you want to read from : ");
+  29   3            pg = rxTwoDigitInt();
+  30   3            tx_str("\n\r");
+  31   3            tx_str(" Entered page number is  : ");
+  32   3            //void intToStr(unsigned int num, char* str)
+  33   3            intToStr( pg, rec);
+  34   3            tx_str(rec);
+  35   3            tx_str("\n\r");
+  36   3            
+  37   3            switch(pg)
+  38   3            {
+  39   4              case 01:
+  40   4              {
+  41   5                addr = 0x00;          
+  42   5                break;
+  43   5              }
+  44   4              case 02:
+  45   4              {
+  46   5                addr = 0x10;          
+  47   5                break;
+  48   5              }
+  49   4              case 03:
+  50   4              {
+  51   5                addr = 0x20;
+  52   5                break;
+  53   5              }
+  54   4              case 04:
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 2   
+
+  55   4              {
+  56   5                addr = 0x30;          
+  57   5                break;
+  58   5              }
+  59   4              case 05:
+  60   4              {
+  61   5                addr = 0x40;          
+  62   5                break;
+  63   5              }
+  64   4              case 06:
+  65   4              {
+  66   5                addr = 0x50;          
+  67   5                break;
+  68   5              }
+  69   4              case 07:
+  70   4              {
+  71   5                addr = 0x60;          
+  72   5                break;
+  73   5              }
+  74   4              case 88:
+  75   4              {
+  76   5                addr = 0x70;          
+  77   5                break;
+  78   5              }
+  79   4              case 99:
+  80   4              {
+  81   5                addr = 0x80;          
+  82   5                break;
+  83   5              }
+  84   4              case 10:
+  85   4              {
+  86   5                addr = 0x90;          
+  87   5                break;
+  88   5              }
+  89   4              case 11:
+  90   4              {
+  91   5                addr = 0xA0;          
+  92   5                break;
+  93   5              }
+  94   4              case 12:
+  95   4              {
+  96   5                addr = 0xB0;          
+  97   5                break;
+  98   5              }
+  99   4              case 13:
+ 100   4              {
+ 101   5                addr = 0xC0;          
+ 102   5                break;
+ 103   5              }
+ 104   4              case 14:
+ 105   4              {
+ 106   5                addr = 0xD0;          
+ 107   5                break;
+ 108   5              }
+ 109   4              case 15:
+ 110   4              {
+ 111   5                addr = 0xE0;          
+ 112   5                break;
+ 113   5              }
+ 114   4              case 16:
+ 115   4              {
+ 116   5                addr = 0xF0;          
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 3   
+
+ 117   5                break;
+ 118   5              }
+ 119   4              case 17:
+ 120   4              {
+ 121   5                addr = 0x100;         
+ 122   5                break;
+ 123   5              }
+ 124   4              case 18:
+ 125   4              {
+ 126   5                addr = 0x110;         
+ 127   5                break;
+ 128   5              }
+ 129   4              case 19:
+ 130   4              {
+ 131   5                addr = 0x120;         
+ 132   5                break;
+ 133   5              }
+ 134   4              case 20:
+ 135   4              {
+ 136   5                addr = 0x130;         
+ 137   5                break;
+ 138   5              }
+ 139   4              case 21:
+ 140   4              {
+ 141   5                addr = 0x140;         
+ 142   5                break;
+ 143   5              }
+ 144   4              case 22:
+ 145   4              {
+ 146   5                addr = 0x150;         
+ 147   5                break;
+ 148   5              }
+ 149   4              case 23:
+ 150   4              {
+ 151   5                addr = 0x160;         
+ 152   5                break;
+ 153   5              }
+ 154   4              case 24:
+ 155   4              {
+ 156   5                addr = 0x170;         
+ 157   5                break;
+ 158   5              }
+ 159   4              case 25:
+ 160   4              {
+ 161   5                addr = 0x180;         
+ 162   5                break;
+ 163   5              }
+ 164   4              case 26:
+ 165   4              {
+ 166   5                addr = 0x190;         
+ 167   5                break;
+ 168   5              }
+ 169   4              case 27:
+ 170   4              {
+ 171   5                addr = 0x1A0;         
+ 172   5                break;
+ 173   5              }
+ 174   4              case 28:
+ 175   4              {
+ 176   5                addr = 0x1B0;         
+ 177   5                break;
+ 178   5              }
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 4   
+
+ 179   4              case 29:
+ 180   4              {
+ 181   5                addr = 0x1C0;         
+ 182   5                break;
+ 183   5              }
+ 184   4              case 30:
+ 185   4              {
+ 186   5                addr = 0x1D0;         
+ 187   5                break;
+ 188   5              }
+ 189   4              case 31:
+ 190   4              {
+ 191   5                addr = 0x1E0;         
+ 192   5                break;
+ 193   5              }
+ 194   4              case 32:
+ 195   4                {
+ 196   5                addr = 0x1F0;
+ 197   5                //tx_str(" Page 32 selected,now you can read from page 32 ");
+ 198   5                break;
+ 199   5                }
+ 200   4              default:
+ 201   4              {
+ 202   5                tx_str(" oops... invalid page number ");
+ 203   5                tx_str("\n\r");
+ 204   5              }     
+ 205   4            
+ 206   4            }
+ 207   3            
+ 208   3            
+ 209   3            if( pg > 0 && pg < 33 )
+ 210   3            {
+ 211   4              tx_str(" Page ");
+ 212   4              tx_str(rec);
+ 213   4              tx_str(" selected, now you can read from page ");
+ 214   4              tx_str(rec);
+ 215   4              tx_str("\n\r");
+ 216   4              
+ 217   4              
+ 218   4              tx_str(" Data in ");
+ 219   4              tx_str(rec);
+ 220   4              tx_str(" page is :");
+ 221   4              i2c_read_string( addr );
+ 222   4              tx_str( rec );
+ 223   4              tx_str("\n\r");
+ 224   4            }   
+ 225   3            else
+ 226   3            {
+ 227   4              tx_str(" oops... invalid page number ");
+ 228   4                tx_str("\n\r");     
+ 229   4            }   
+ 230   3          
+ 231   3          }
+ 232   2          
+ 233   2          
+ 234   2          
+ 235   2          
+ 236   2          
+ 237   2          
+ 238   2          
+ 239   2          
+ 240   2          
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 5   
+
+ 241   2          
+ 242   2          
+ 243   2          
+ 244   2          
+ 245   2          
+ 246   2          
+ 247   2          
+ 248   2          
+ 249   2          
+ 250   2          
+ 251   2          
+ 252   2          
+ 253   2          
+ 254   2          
+ 255   2          if( rw == 'W' || rw == 'w' )
+ 256   2          {
+ 257   3            tx_str(" Write  mode selected");    
+ 258   3            tx_str("\n\r");
+ 259   3            tx_str(" Enter the page number you want to perform write operation : ");
+ 260   3            pg = rxTwoDigitInt();
+ 261   3            tx_str("\n\r");
+ 262   3            tx_str(" Entered page number is  : ");
+ 263   3            //void intToStr(unsigned int num, char* str)
+ 264   3            intToStr( pg, rec);
+ 265   3            tx_str(rec);
+ 266   3            tx_str("\n\r");
+ 267   3            
+ 268   3            switch(pg)
+ 269   3            {
+ 270   4              case 01:
+ 271   4              {
+ 272   5                addr = 0x00;          
+ 273   5                break;
+ 274   5              }
+ 275   4              case 02:
+ 276   4              {
+ 277   5                addr = 0x10;          
+ 278   5                break;
+ 279   5              }
+ 280   4              case 03:
+ 281   4              {
+ 282   5                addr = 0x20;
+ 283   5                break;
+ 284   5              }
+ 285   4              case 04:
+ 286   4              {
+ 287   5                addr = 0x30;          
+ 288   5                break;
+ 289   5              }
+ 290   4              case 05:
+ 291   4              {
+ 292   5                addr = 0x40;          
+ 293   5                break;
+ 294   5              }
+ 295   4              case 06:
+ 296   4              {
+ 297   5                addr = 0x50;          
+ 298   5                break;
+ 299   5              }
+ 300   4              case 07:
+ 301   4              {
+ 302   5                addr = 0x60;          
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 6   
+
+ 303   5                break;
+ 304   5              }
+ 305   4              case 88:
+ 306   4              {
+ 307   5                addr = 0x70;          
+ 308   5                break;
+ 309   5              }
+ 310   4              case 99:
+ 311   4              {
+ 312   5                addr = 0x80;          
+ 313   5                break;
+ 314   5              }
+ 315   4              case 10:
+ 316   4              {
+ 317   5                addr = 0x90;          
+ 318   5                break;
+ 319   5              }
+ 320   4              case 11:
+ 321   4              {
+ 322   5                addr = 0xA0;          
+ 323   5                break;
+ 324   5              }
+ 325   4              case 12:
+ 326   4              {
+ 327   5                addr = 0xB0;          
+ 328   5                break;
+ 329   5              }
+ 330   4              case 13:
+ 331   4              {
+ 332   5                addr = 0xC0;          
+ 333   5                break;
+ 334   5              }
+ 335   4              case 14:
+ 336   4              {
+ 337   5                addr = 0xD0;          
+ 338   5                break;
+ 339   5              }
+ 340   4              case 15:
+ 341   4              {
+ 342   5                addr = 0xE0;          
+ 343   5                break;
+ 344   5              }
+ 345   4              case 16:
+ 346   4              {
+ 347   5                addr = 0xF0;          
+ 348   5                break;
+ 349   5              }
+ 350   4              case 17:
+ 351   4              {
+ 352   5                addr = 0x100;         
+ 353   5                break;
+ 354   5              }
+ 355   4              case 18:
+ 356   4              {
+ 357   5                addr = 0x110;         
+ 358   5                break;
+ 359   5              }
+ 360   4              case 19:
+ 361   4              {
+ 362   5                addr = 0x120;         
+ 363   5                break;
+ 364   5              }
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 7   
+
+ 365   4              case 20:
+ 366   4              {
+ 367   5                addr = 0x130;         
+ 368   5                break;
+ 369   5              }
+ 370   4              case 21:
+ 371   4              {
+ 372   5                addr = 0x140;         
+ 373   5                break;
+ 374   5              }
+ 375   4              case 22:
+ 376   4              {
+ 377   5                addr = 0x150;         
+ 378   5                break;
+ 379   5              }
+ 380   4              case 23:
+ 381   4              {
+ 382   5                addr = 0x160;         
+ 383   5                break;
+ 384   5              }
+ 385   4              case 24:
+ 386   4              {
+ 387   5                addr = 0x170;         
+ 388   5                break;
+ 389   5              }
+ 390   4              case 25:
+ 391   4              {
+ 392   5                addr = 0x180;         
+ 393   5                break;
+ 394   5              }
+ 395   4              case 26:
+ 396   4              {
+ 397   5                addr = 0x190;         
+ 398   5                break;
+ 399   5              }
+ 400   4              case 27:
+ 401   4              {
+ 402   5                addr = 0x1A0;         
+ 403   5                break;
+ 404   5              }
+ 405   4              case 28:
+ 406   4              {
+ 407   5                addr = 0x1B0;         
+ 408   5                break;
+ 409   5              }
+ 410   4              case 29:
+ 411   4              {
+ 412   5                addr = 0x1C0;         
+ 413   5                break;
+ 414   5              }
+ 415   4              case 30:
+ 416   4              {
+ 417   5                addr = 0x1D0;         
+ 418   5                break;
+ 419   5              }
+ 420   4              case 31:
+ 421   4              {
+ 422   5                addr = 0x1E0;         
+ 423   5                break;
+ 424   5              }
+ 425   4              case 32:
+ 426   4                {
+C51 COMPILER V9.60.7.0   MAIN                                                              11/07/2023 20:07:20 PAGE 8   
+
+ 427   5                addr = 0x1F0;
+ 428   5                //tx_str(" Page 32 selected,now you can read from page 32 ");
+ 429   5                break;
+ 430   5                }
+ 431   4              default:
+ 432   4              {
+ 433   5                tx_str(" oops... invalid page number ");
+ 434   5                tx_str("\n\r");
+ 435   5              }     
+ 436   4            
+ 437   4            }
+ 438   3            
+ 439   3            
+ 440   3            
+ 441   3            if( pg > 0 && pg < 33 )
+ 442   3            {
+ 443   4              tx_str(" Page ");
+ 444   4              tx_str(rec);
+ 445   4              tx_str(" selected, now you can write in to the page ");
+ 446   4              tx_str(rec);
+ 447   4              tx_str("\n\r");
+ 448   4              
+ 449   4              
+ 450   4              tx_str(" Enter the Data you want to write :");
+ 451   4              tx_str("\n\r");
+ 452   4              rx_str(rec,17);       
+ 453   4              tx_str(" Entered data is : ");
+ 454   4              tx_str(rec);
+ 455   4              tx_str("\n\r");       
+ 456   4              i2c_send_string(addr, rec );
+ 457   4              tx_str(" Data written successfully ");
+ 458   4              tx_str("\n\r");
+ 459   4              
+ 460   4              
+ 461   4            }   
+ 462   3            else
+ 463   3            {
+ 464   4              tx_str(" oops... invalid page number ");
+ 465   4                tx_str("\n\r");     
+ 466   4            } 
+ 467   3                  
+ 468   3            
+ 469   3          }
+ 470   2        
+ 471   2        } 
+ 472   1        //while(1);
+ 473   1      
+ 474   1      }
+ 475          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   1089    ----
+   CONSTANT SIZE    =    516    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

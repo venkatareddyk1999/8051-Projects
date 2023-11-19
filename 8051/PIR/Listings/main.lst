@@ -1,0 +1,72 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 12:23:04 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          
+   3          // Define macros for PIR sensor and LED pins
+   4          sbit PIR_PIN = P2^0;
+   5          sbit LED_PIN = P1^0;
+   6          
+   7          // Function to initialize the microcontroller
+   8          void init()
+   9          {
+  10   1          // Configure PIR_PIN as input
+  11   1          PIR_PIN = 1;
+  12   1      
+  13   1          // Configure LED_PIN as output
+  14   1          LED_PIN = 0;
+  15   1      }
+  16          
+  17          // Function to check PIR sensor status
+  18          unsigned char readPIR() 
+  19          {
+  20   1          return PIR_PIN;  // Read the PIR sensor pin
+  21   1      }
+  22          
+  23          // Function to control the LED based on PIR sensor output
+  24          void controlLED(unsigned char pirStatus) 
+  25          {
+  26   1          if (pirStatus) 
+  27   1          {
+  28   2              LED_PIN = 1;  // Turn on the LED
+  29   2          } else 
+  30   1          {
+  31   2              LED_PIN = 0;  // Turn off the LED
+  32   2          }
+  33   1      }
+  34          
+  35          void main() 
+  36          {
+  37   1          unsigned char pirStatus;
+  38   1      
+  39   1          init();  // Initialize the microcontroller
+  40   1      
+  41   1          while (1) 
+  42   1          {
+  43   2              pirStatus = readPIR();  // Read PIR sensor status
+  44   2              controlLED(pirStatus);  // Control the LED based on PIR status
+  45   2          }
+  46   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     31    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 12:23:04 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

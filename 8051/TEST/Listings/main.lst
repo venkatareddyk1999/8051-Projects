@@ -1,0 +1,116 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 20:15:54 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include<reg51.h>
+   2          
+   3          #define delay for(i=0;i<10000;i++);
+   4          #define lcd P1
+   5          
+   6          sbit rd=P0^0;
+   7          sbit wr=P0^1;
+   8          sbit intr=P0^2;
+   9          
+  10          sbit rs=P0^5;
+  11          sbit rw=P0^6;
+  12          sbit en=P0^7;
+  13          
+  14          void lcd_int();
+  15          void cmd(unsigned int b);
+  16          void dat(unsigned int c);
+  17          void show(unsigned char *s);
+  18          
+  19          unsigned char adc(),conv;
+  20          int i,v_value, get_value;
+  21          
+  22          void main()
+  23          {
+  24   1          lcd_int();
+  25   1          show("voltage=");
+  26   1          while(1)
+  27   1              {
+  28   2                
+  29   2                v_value = adc();
+  30   2              get_value = v_value * 2;
+  31   2              cmd(0x88);
+  32   2              dat((get_value/100)+48);
+  33   2                show(".");
+  34   2              dat(((get_value/10)%10)+48);
+  35   2              dat((get_value%10)+48);
+  36   2             cmd(0x8c);
+  37   2              dat('V');
+  38   2                delay;
+  39   2                delay;
+  40   2                delay;
+  41   2      
+  42   2              }
+  43   1      }
+  44          
+  45          void lcd_int()
+  46          {
+  47   1          cmd(0x38);
+  48   1          cmd(0x0e);
+  49   1          cmd(0x06);
+  50   1          cmd(0x01);
+  51   1          cmd(0x80);
+  52   1      }
+  53          
+  54          void cmd(unsigned int b)
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 20:15:54 PAGE 2   
+
+  55          {
+  56   1          lcd=b;
+  57   1          rs=0;
+  58   1          rw=0;
+  59   1          en=1;
+  60   1          delay;
+  61   1          en=0;
+  62   1      }
+  63          
+  64          void dat(unsigned int c)
+  65          {
+  66   1          lcd=c;
+  67   1          rs=1;
+  68   1          rw=0;
+  69   1          en=1;
+  70   1          delay;
+  71   1          en=0;
+  72   1      }
+  73          
+  74          void show(unsigned char *s)
+  75          {
+  76   1          while(*s)
+  77   1              dat(*s++);
+  78   1      }
+  79          
+  80          unsigned char adc()
+  81          {
+  82   1          wr=0;
+  83   1          rd=1;
+  84   1          wr=1;
+  85   1          while(intr==1);
+  86   1          rd=0;
+  87   1          conv=P2;
+  88   1          
+  89   1          return conv;
+  90   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    345    ----
+   CONSTANT SIZE    =     11    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      7       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

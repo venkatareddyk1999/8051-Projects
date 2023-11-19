@@ -1,0 +1,66 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 10:09:41 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include "lcd.h"
+   3          #include "adc.h"
+   4          #include "IO_Definitions.h"
+   5          
+   6          
+   7          
+   8          
+   9          
+  10          void main()
+  11          {
+  12   1        lcd_init();
+  13   1        lcd_data_string(" VENKATA REDDY ");
+  14   1        delay(1000);
+  15   1        lcd_init();
+  16   1        lcd_data_string("AJAY REDDY");
+  17   1        delay(700);
+  18   1        lcd_init();
+  19   1        lcd_data_string("  NARASIMHA ");
+  20   1        delay(700);
+  21   1        lcd_init();
+  22   1        lcd_data_string(" CHARAN /RISHI");
+  23   1        delay(700);
+  24   1        lcd_init();
+  25   1        lcd_data_string("TEMPERATURE=");
+  26   1      while(1)
+  27   1      {
+  28   2      dataport=0x00;
+  29   2      adc_input=0xff;
+  30   2      P3=0x00;
+  31   2        lcd_cmd(0x8c);
+  32   2      delay(1);
+  33   2      //lcd_init();
+  34   2      //lcd_data_string("TEMPERATURE=");
+  35   2      adc_conv();
+  36   2      adc_read();
+  37   2      lcd_data('C');
+  38   2      delay(50);
+  39   2       }
+  40   1      }
+  41          
+  42          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    128    ----
+   CONSTANT SIZE    =     68    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     20    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

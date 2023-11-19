@@ -1,0 +1,174 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 17:09:09 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <stdio.h>
+   3          
+   4          // Function prototype for delay_ms
+   5          void delay_ms(unsigned int milliseconds);
+   6          void LCD_Command(unsigned char cmd);
+   7          void LCD_Init();
+   8          //void LCD_Data(unsigned char Data);
+   9          void IntToStr(unsigned int num, char *buffer);
+  10          void ADC_Init();
+  11          unsigned int ADC_Read(unsigned char channel);
+  12          void LCD_String(char *str);
+  13          
+  14          
+  15          
+  16          
+  17          // Define LCD control pins
+  18          sbit RS = P1^0;    // Register Select
+  19          sbit RW = P1^1;    // Read/Write
+  20          sbit EN = P1^2;    // Enable
+  21          
+  22          // Define ADC control pins
+  23          sbit ALE = P2^0;   // Address Latch Enable
+  24          sbit START = P2^1; // Start conversion
+  25          sbit EOC = P2^2;   // End of Conversion
+  26          sbit OE = P2^3;    // Output Enable
+  27          sbit rd = P2^4;    // Read
+  28          sbit wr = P2^5;    // Write
+  29          sbit INTR = P2^6;  // Interrupt
+  30          
+  31          // Function to initialize LCD
+  32          void LCD_Init() 
+  33          {
+  34   1          delay_ms(15);
+  35   1          LCD_Command(0x38); // 2 lines, 5x7 matrix
+  36   1          LCD_Command(0x0E); // Display on, cursor blinking
+  37   1          LCD_Command(0x01); // Clear screen
+  38   1          LCD_Command(0x06); // Increment cursor
+  39   1          LCD_Command(0x80); // Move cursor to the beginning of the first line
+  40   1      }
+  41          
+  42          // Function to send a command to the LCD
+  43          void LCD_Command(unsigned char cmd) 
+  44          {
+  45   1          RS = 0;     // Command mode
+  46   1          RW = 0;     // Write mode
+  47   1          EN = 1;     // Enable pulse
+  48   1          P3 = cmd;   // Send command
+  49   1          EN = 0;
+  50   1          delay_ms(1);
+  51   1      }
+  52          
+  53          // Function to send a dat byte to the LCD
+  54          
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 17:09:09 PAGE 2   
+
+  55          //void LCD_Data(unsigned char Data)
+  56          //{
+  57          //    RS = 1;     // Data mode
+  58          //    RW = 0;     // Write mode
+  59          //    EN = 1;     // Enable pulse
+  60          //    P3 = Data;  // Send dat
+  61          //    EN = 0;
+  62          //    delay_ms(1);
+  63          //}
+  64          
+  65          
+  66          
+  67          // Function to send a Data byte to the LCD
+  68          void LCD_Data(unsigned char Data)
+  69          {
+  70   1          RS = 1;     // Data mode
+  71   1          RW = 0;     // Write mode
+  72   1          EN = 1;     // Enable pulse
+  73   1          P3 = Data;  // Send Data
+  74   1          EN = 0;
+  75   1          delay_ms(1);
+  76   1      }
+  77          
+  78          
+  79          
+  80          
+  81          void LCD_String(char *str) {
+  82   1          int i;
+  83   1          for (i = 0; str[i] != '\0'; i++) {
+  84   2              LCD_Data(str[i]);
+  85   2          }
+  86   1      
+  87   1      
+  88   1      
+  89   1      
+  90   1      // Function to convert an integer to a string
+  91   1      void IntToStr(unsigned int num, char *buffer) 
+*** ERROR C141 IN LINE 91 OF main.c: syntax error near 'void', expected '__asm'
+  92   1      {
+  93   2          sprintf(buffer, "%u", num);
+  94   2      }
+  95   1      
+  96   1      // Simple software delay function (adjust loop count for your clock frequency)
+  97   1      void delay_ms(unsigned int milliseconds) 
+  98   1      {
+  99   1          unsigned int i, j;
+ 100   1          for (i = 0; i < milliseconds; i++)
+ 101   1              for (j = 0; j < 122; j++); // Adjust this loop for the desired delay
+ 102   1      }
+ 103          
+ 104          // Function to initialize ADC
+ 105          void ADC_Init() 
+ 106          {
+ 107   1          // Configure ADC pins and control pins
+ 108   1          P0 = 0xFF; // Configure all pins on P0 as input
+ 109   1          P1 = 0x00; // Configure P1 as output for LCD control
+ 110   1          P3 = 0x00; // Configure P3 as output for LCD Data and ADC channel selection
+ 111   1          
+ 112   1          // Configure ADC control pins
+ 113   1          ALE = 0;
+ 114   1          START = 0;
+ 115   1          EOC = 1;
+C51 COMPILER V9.60.7.0   MAIN                                                              09/25/2023 17:09:09 PAGE 3   
+
+ 116   1          OE = 0;
+ 117   1          rd = 0;
+ 118   1          wr = 0;
+ 119   1          INTR = 1;
+ 120   1      }
+ 121          
+ 122          // Function to read ADC value
+ 123          unsigned int ADC_Read(unsigned char channel) 
+ 124          {
+ 125   1          unsigned int result;
+ 126   1          P3 = channel; // Set the channel on address lines
+ 127   1          ALE = 1;      // Enable address latch
+ 128   1          START = 1;    // Start conversion
+ 129   1          delay_ms(1);  // Delay for conversion to complete (you may need to adjust this)
+ 130   1          START = 0;    // Stop conversion
+ 131   1          while (EOC);  // Wait for end of conversion
+ 132   1          result = P0;  // Read ADC result from Data bus
+ 133   1          ALE = 0;      // Disable address latch
+ 134   1          return result;
+ 135   1      }
+ 136          
+ 137          void main() {
+ 138   1          unsigned int adcValue;
+ 139   1          float voltage;
+ 140   1          char voltageStr[10];
+ 141   1      
+ 142   1          ADC_Init();
+ 143   1          LCD_Init();
+ 144   1      
+ 145   1          while (1) {
+ 146   2              adcValue = ADC_Read(0); // Read voltage from channel 0 (you can change this as needed)
+ 147   2              voltage = adcValue * 5.0 / 255.0; // Convert ADC value to voltage (assuming 5V reference)
+ 148   2              
+ 149   2              IntToStr(adcValue, voltageStr); // Convert ADC value to a string
+ 150   2      
+ 151   2              LCD_Command(0x80); // Move cursor to the beginning of the first line
+ 152   2              LCD_String("Voltage: ");
+ 153   2              LCD_Command(0xC0); // Move cursor to the beginning of the second line
+ 154   2              LCD_String(voltageStr);
+ 155   2              LCD_String(" V");
+ 156   2          }
+ 157   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)

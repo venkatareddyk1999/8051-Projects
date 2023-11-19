@@ -1,0 +1,458 @@
+//length of the string 
+#include<stdio.h>
+void main()
+{
+    char a[30],i=0,count=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    printf("length of given string is:%d\n",count);
+}
+
+
+
+
+
+
+
+//string copy
+#include<stdio.h>
+void main()
+{
+    char a[46],b[34],i,count=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<=count;i++)
+    {
+        b[i]=a[i];
+    }
+    printf("copied string is:\n");
+    puts(b);
+}
+
+
+
+
+
+
+
+
+//string concatenation
+#include<stdio.h>
+void main()
+{
+    char a[45],b[34],i,count=0,count1=0;
+    printf("enter first string:\n");
+    gets(a);
+    printf("enter second string:\n");
+    gets(b);
+    printf("entered two strings are:\n");
+    puts(a);
+    printf("\n");
+    puts(b);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;b[i]!='\0';i++)
+    {
+        count1++;
+    }
+    for(i=0;i<=count1;i++)
+    {
+        a[count]=b[i];
+        count++;
+    }
+    printf("conatenated string is:\n");
+    puts(a);
+}
+
+
+
+
+
+
+
+
+
+
+//string compare
+#include<stdio.h>
+void main()
+{
+    char a[46],b[34],i,count=0,count1=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("enter second string:\n");
+    gets(b);
+    printf("entered first string is:\n");
+    puts(a);
+    printf("entered second string is:\n");
+    puts(b);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count1++;
+    }
+    for(i=0;a[i]!='\0'||b[i]!='\0';i++)
+    {
+        if(a[i]==b[i])
+        {
+            count++;
+        }
+    }
+    if(count==count1)
+    {
+        printf("entered two strings are same\n");
+    }
+    else
+    {
+        printf("entered two strings are not same\n");
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+//string lowercase to upperase
+#include<stdio.h>
+void main()
+{
+    char a[30],i=0,count=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    printf("\n");
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<count;i++)
+    {
+        if(a[i]>='a'&&a[i]<='z')
+        {
+            a[i]=a[i]-32;
+        }
+        else if(a[i]>='A'&&a[i]<='Z')
+        {
+            continue;
+        }
+    }
+    printf("string after onverting in to uppercase is:\n");
+    puts(a);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//string upperase to lowercase
+#include<stdio.h>
+void main()
+{
+    char a[30],i=0,count=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    printf("\n");
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<count;i++)
+    {
+        if(a[i]>='a'&&a[i]<='z')
+        {
+            continue;
+        }
+        else if(a[i]>='A'&&a[i]<='Z')
+        {
+            a[i]=a[i]+32;
+        }
+    }
+    printf("string after converting in to lowercase is:\n");
+    puts(a);
+}
+
+
+
+
+
+
+
+
+
+
+
+//toggle string case
+#include<stdio.h>
+void main()
+{
+    char a[30],i=0,count=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    printf("\n");
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<count;i++)
+    {
+        if(a[i]>='a'&&a[i]<='z')
+        {
+            a[i]=a[i]-32;
+        }
+        else if(a[i]>='A'&&a[i]<='Z')
+        {
+            a[i]=a[i]+32;
+        }
+    }
+    printf("string after toggle its case is:\n");
+    puts(a);
+}
+
+
+
+
+
+
+
+
+
+//total number of digits,alphabets and special chareters in given string
+#include<stdio.h>
+void main()
+{
+    char a[30],i=0,count=0,count1=0,count2=0,count3=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    printf("\n");
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<count;i++)
+    {
+        if(a[i]>='a'&&a[i]<='z'||a[i]>='A'&&a[i]<='Z')
+        {
+            count3++;
+        }
+        else if(a[i]>='0'&&a[i]<='9')
+        {
+            count1++;
+        }
+        else
+        {
+            count2++;
+        }
+    }
+    printf("total alphabets in string:%d\n",count3);
+    printf("total numbers in the given string is:%d\n",count1++);
+    printf("total speial chareters in given string is:%d\n",count2);
+}
+
+
+
+
+
+
+
+
+//number of vowels and consonants in string
+#include<stdio.h>
+void main()
+{
+    char a[36],i,count=0,count1=0,count2=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<count;i++)
+    {
+        if(a[i]=='A'||a[i]=='a'||a[i]=='E'||a[i]=='e'||a[i]=='I'||a[i]=='i'||a[i]=='O'||a[i]=='o'||a[i]=='U'||a[i]=='u')
+        {
+            count1++;
+        }
+        else
+        {
+            count2++;
+        }
+    }
+    printf("number of vowels in given string is:%d\n",count1);
+    printf("number of consonants in given strin is :%d\n",count2);
+}
+
+
+
+
+
+
+
+
+
+//number of words in given string
+#include<stdio.h>
+void main()
+{
+    char a[36],i,count=0,count1=0,count2=0;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<count;i++)
+    {
+        if(a[i]==' ')
+        {
+            count1++;
+        }
+    }
+    printf("number of words in given string is:%d\n",count1+1);
+}
+
+
+
+
+
+
+
+
+//string reverse
+#include<stdio.h>
+void main()
+{
+    char a[34],i,j,k,count=0,count1=0,temp;
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    j=count-1;
+    for(i=0;i<count/2;i++)
+    {
+        temp=a[i];
+        a[i]=a[j];
+        a[j]=temp;
+        j--;
+    }
+    printf("\n");
+    printf("reverse of given string is:\n");
+    puts(a);
+}
+
+
+
+
+
+
+
+//string palindrome or not
+#include<stdio.h>
+void main()
+{
+    char a[34],i,j,k,count=0,count1=0,temp,b[34];
+    printf("enter any string:\n");
+    gets(a);
+    printf("entered string is:\n");
+    puts(a);
+    for(i=0;a[i]!='\0';i++)
+    {
+        count++;
+    }
+    for(i=0;i<=count;i++)
+    {
+        b[i]=a[i];
+    }
+   // printf("b array\n");
+   // puts(b);
+    j=count-1;
+    for(i=0;i<count/2;i++)
+    {
+        temp=a[i];
+        a[i]=a[j];
+        a[j]=temp;
+        j--;
+    }
+    printf("\n");
+    printf("reverse of given string is:\n");
+    puts(a);
+    for(i=0;i<count;i++)
+    {
+        if(a[i]==b[i])
+        {
+            count1++;
+        }
+    }
+    if(count==count1)
+    {
+        printf("entered string is palindrome\n");
+    }
+    else
+    {
+        printf("entered string is not a palindrome\n");
+    }
+}
+
+
+
+
+#include<stdio.h>
+#include<string.h>
+void fun(char str[100]);
+void main()
+{
+    char str[100];
+    printf("enter any string:\n");
+    gets(str);
+    fun(str);
+}
+void fun(char str[100])
+{
+    char rev[100];
+    puts(str);
+    printf("length=%d",strlen(str));
+    strcpy(rev,str);
+    puts(rev);
+    strrev(str);
+    
+    
+}
